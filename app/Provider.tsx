@@ -4,12 +4,12 @@ import Loader from '@/components/Loader';
 import { ClientSideSuspense, LiveblocksProvider } from '@liveblocks/react/suspense';
 import { ReactNode } from 'react';
 
-const Provider = ({children}: {children: ReactNode}) => {
+const Provider = ({ children }: { children: ReactNode }) => {
   return (
     <LiveblocksProvider authEndpoint="/api/liveblocks/auth">
-        <ClientSideSuspense fallback={<Loader />}>
-            {children}
-        </ClientSideSuspense>
+      <ClientSideSuspense fallback={<Loader />}>
+        {children}
+      </ClientSideSuspense>
     </LiveblocksProvider>
   )
 }

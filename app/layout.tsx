@@ -16,15 +16,15 @@ export const metadata: Metadata = {
   title: 'Automatify',
   description: 'Automation tool',
 }
-export default function RootLayout({ children }: {children: React.ReactNode}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider
       appearance={
         {
           baseTheme: dark,
-          variables: { 
+          variables: {
             colorPrimary: "#3371FF",
-            fontSize: '16px', 
+            fontSize: '16px',
           },
         }}
     >
@@ -36,9 +36,8 @@ export default function RootLayout({ children }: {children: React.ReactNode}) {
           )}
         >
           <Provider>
-            
+            {children}
           </Provider>
-          {children}
         </body>
       </html>
     </ClerkProvider>
