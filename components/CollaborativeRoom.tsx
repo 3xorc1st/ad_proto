@@ -5,7 +5,6 @@ import AppletManagerDark from '@/components/applet/AppletManagerDark'
 import Header from '@/components/Header'
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 
-
 const CollaborativeRoom = () => {
     return (
         <RoomProvider id="my-room">
@@ -15,12 +14,14 @@ const CollaborativeRoom = () => {
                         <div className="flex w-fit items-center justify-center gap-2">
                             <p className="document-title">Share</p>
                         </div>
-                        <SignedOut>
-                            <SignInButton />
-                        </SignedOut>
-                        <SignedIn>
-                            <UserButton />
-                        </SignedIn>
+                        <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">                       
+                            <SignedOut>
+                                <SignInButton />
+                            </SignedOut>
+                            <SignedIn>
+                                <UserButton />
+                            </SignedIn>
+                        </div>
                     </Header>
                     <AppletManagerDark />
                 </div>
