@@ -10,7 +10,6 @@ export async function POST(request: Request) {
 
   const { id, firstName, lastName, emailAddresses, imageUrl } = clerkUser;
 
-  // Get the current user from your database
   const user = {
     id,
     info: {
@@ -20,16 +19,19 @@ export async function POST(request: Request) {
       avatar: imageUrl,
       color: getUserColor(id),
     }
+  };
+
+  try {
+    const { status, body } = await liveblocks.identifyUser(
+      {
+        userId: user.info.email,
+        groupIds: [],
+      },
+      { userInfo: user.info }
+    );
+    return new Response(body, { status });
+  } catch (error) {
+    console.error("Liveblocks Authentication Error:", error);
+    return new Response("Failed to authenticate with Liveblocks", { status: 500 });
   }
-
-  // Identify the user and return the result
-  const { status, body } = await liveblocks.identifyUser(
-    {
-      userId: user.info.email,
-      groupIds: [],
-    },
-    { userInfo: user.info } // Optional
-  );
-
-  return new Response(body, { status });
 }

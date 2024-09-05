@@ -1,4 +1,4 @@
-import { useOthers } from '@liveblocks/react/suspense'
+import { useOthers } from '@liveblocks/react/suspense';
 import Image from 'next/image';
 
 const ActiveCollaborators = () => {
@@ -8,7 +8,7 @@ const ActiveCollaborators = () => {
 
   return (
     <ul className="collaborators-list">
-      {collaborators.map(({ id, avatar, name, color }) => (
+      {collaborators.map(({id, avatar, name, color}) => (
         <li key={id}>
           <Image 
             src={avatar}

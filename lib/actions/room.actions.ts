@@ -6,12 +6,6 @@ import { RoomAccesses } from '@liveblocks/node';
 import { revalidatePath } from 'next/cache';
 import { parseStringify } from '../utils';
 
-/* Define the type here or import it
-interface CreateDocumentParams {
-    userId: string;
-    email: string;
-}*/
-
 export const createDocument = async ({ userId, email }: CreateDocumentParams) => {
     const roomId = nanoid();
 
@@ -29,7 +23,7 @@ export const createDocument = async ({ userId, email }: CreateDocumentParams) =>
         const room = await liveblocks.createRoom(roomId, {
             metadata,
             usersAccesses,
-            defaultAccesses: []
+            defaultAccesses: ['room:write']
         });
 
         revalidatePath('/');
@@ -44,12 +38,12 @@ export const getDocument = async ({ roomId, userId }: { roomId: string; userId: 
     try {
         const room = await liveblocks.getRoom(roomId);
 
-        //TODO: Bring this back when we have the permissions system in place
         // const hasAccess = Object.keys(room.usersAccesses).includes(userId);
 
-        // if(!hasAccess) {
+        // if (!hasAccess) {
         //     throw new Error('You do not have access to this document');
         // }
+
         return parseStringify(room);
     } catch (error) {
         console.log(`Error happened while getting a room: ${error}`);
@@ -72,10 +66,10 @@ export const updateDocument = async (roomId: string, title: string) => {
     }
 }
 
-export const getDocuments = async ( email: string) => {
+export const getDocuments = async (email: string) => {
     try {
-        const rooms = await liveblocks.getRooms({ userId: email});
-        
+        const rooms = await liveblocks.getRooms({ userId: email });
+
         return parseStringify(rooms);
     } catch (error) {
         console.log(`Error happened while getting a rooms: ${error}`);
