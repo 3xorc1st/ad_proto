@@ -10,6 +10,7 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import React from 'react';
+import { DeleteModal } from '../DeleteModal';
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -20,33 +21,33 @@ function Placeholder() {
 }
 
 export function Editor() {
-    const initialConfig = {
-      namespace: 'Editor',
-      nodes: [HeadingNode],
-      onError: (error: Error) => {
-        console.error(error);
-        throw error;
-      },
-      theme: Theme,
+  const initialConfig = {
+    namespace: 'Editor',
+    nodes: [HeadingNode],
+    onError: (error: Error) => {
+      console.error(error);
+      throw error;
+    },
+    theme: Theme,
   };
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div className="editor-container size-full">
-          <ToolbarPlugin />
-
+        <ToolbarPlugin />
+        {currentUserType === 'editor' && <DeleteModal roomId={roomId} />}
         <div className="editor-inner h-[1100px]">
-              <RichTextPlugin
-                contentEditable={
-                  <ContentEditable className="editor-input h-full" />
-                }
-                placeholder={<Placeholder />}
-                ErrorBoundary={LexicalErrorBoundary}
-              />
-              <HistoryPlugin />
-              <AutoFocusPlugin />
-            </div>
-          </div>
+          <RichTextPlugin
+            contentEditable={
+              <ContentEditable className="editor-input h-full" />
+            }
+            placeholder={<Placeholder />}
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+          <HistoryPlugin />
+          <AutoFocusPlugin />
+        </div>
+      </div>
     </LexicalComposer>
   );
 }
