@@ -9,7 +9,8 @@ const nextConfig = {
     }
 };
 
-export default withSentryConfig(nextConfig, {
+/* export default withSentryConfig(nextConfig, {
+
 // For all available options, see:
 // https://github.com/getsentry/sentry-webpack-plugin#options
 
@@ -49,3 +50,6 @@ disableLogger: true,
 // https://vercel.com/docs/cron-jobs
 automaticVercelMonitors: true,
 });
+*/
+
+export default nextConfig;
