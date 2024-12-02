@@ -8,7 +8,7 @@ interface StatusResponse {
   status: string;
   authResponse?: {
     userID: string;
-    accessToken: string;
+    accessToken?: string;
   };
 }
 
@@ -38,19 +38,19 @@ export default function Page() {
   }, []);
 
   const checkLoginState = () => {
-    FB.getLoginStatus(function(response: any) {
+    FB.getLoginStatus((response: StatusResponse) => {
       statusChangeCallback(response);
     });
   };
 
-  const statusChangeCallback = (response: any) => {
+  const statusChangeCallback = (response: StatusResponse) => {
     if (response.status === 'connected') {
       console.log('Logged in.');
     } else {
-      FB.login(function(response: any) {
+      FB.login((response: StatusResponse) => {
         if (response.authResponse) {
-          console.log('Welcome!  Fetching your information.... ');
-          FB.api('/me', function(response: { name: string }) {
+          console.log('Welcome! Fetching your information....');
+          FB.api('/me', (response: { name: string }) => {
             console.log('Good to see you, ' + response.name + '.');
           });
         } else {
@@ -65,7 +65,7 @@ export default function Page() {
       '/me/feed',
       'post',
       { message: message },
-      function(response: FBPostResponse | FBError) {
+      (response: FBPostResponse | FBError) => {
         if ('id' in response) {
           console.log('Post ID: ' + response.id);
         } else if ('error' in response) {
