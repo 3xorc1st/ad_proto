@@ -10,10 +10,8 @@ To create an applet, implement the `Applet` interface and define the `trigger` a
 
 We use common interfaces for events and actions to ensure consistency and extendability.
 
-#### Event Interface
+### Configuration Management
 
-```typescript
-export interface Event {
-    type: string;
-    payload: any;
-}
+#### Web Interface
+
+To manage configurations via the web interface, navigate to the Config Manager page in your application.

@@ -1,6 +1,9 @@
 import { Applet } from './Applet';
 import { Event, Action } from './interfaces';
 import * as FB from 'fb';
+import { readConfig } from '@/lib/configManager';
+
+const config = readConfig();
 
 export class FacebookPostApplet implements Applet {
     id: string;
@@ -25,10 +28,9 @@ export class FacebookPostApplet implements Applet {
     action: (payload: any) => void = (payload: any) => {
         console.log(`Posting to Facebook with payload: ${JSON.stringify(payload)}`);
 
-        // Lógica para interactuar con la API de Facebook
         FB.api('me/feed', 'post', {
             message: payload.message,
-            access_token: 'EAAPA5zn7VAwBO2TP6UehFweyp4XHO3TnCvBtRm9JFOYNf5W0Hz4EcSEkZCEKUaoIVIFh1ZAX4SbBshnmUOvnM43vki0MNOZCMjm0rhHMaEuyaMMkjGWfGcplT1Y6Iv0F2VuZC6CmEw0f6L3ZAUxh9drS3QcHqYKHX6XmIgiVOdQXF3gYst2wkAGRd8uersMkGEIgP64MyECsI82URghaQknGaCBRmtctPkQZDZD',
+            access_token: config.facebook.access_token
         }, (response: any) => {
             if (!response || response.error) {
                 console.error('Error posting to Facebook:', response?.error);
