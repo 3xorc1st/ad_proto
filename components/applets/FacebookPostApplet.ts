@@ -1,5 +1,5 @@
 import { Applet } from './Applet';
-import { Event, Action } from './interfaces';
+import { Event } from './interfaces';
 import * as FB from 'fb';
 import { readConfig } from '@/lib/configManager';
 
@@ -25,7 +25,7 @@ export class FacebookPostApplet implements Applet {
         }
     }
 
-    action: (payload: any) => void = (payload: any) => {
+    action(payload: any): void {
         console.log(`Posting to Facebook with payload: ${JSON.stringify(payload)}`);
 
         FB.api('me/feed', 'post', {

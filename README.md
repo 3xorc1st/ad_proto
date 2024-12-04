@@ -6,12 +6,32 @@ Automatify is an automation tool that uses Applets to create and consume events.
 
 To create an applet, implement the `Applet` interface and define the `trigger` and `action` methods.
 
-### Common Interfaces
+Example:
+```typescript
+import { Applet } from './Applet';
+import { Event } from './interfaces';
 
-We use common interfaces for events and actions to ensure consistency and extendability.
+export class SampleApplet implements Applet {
+    id: string;
+    name: string;
+    description: string;
 
-### Configuration Management
+    constructor() {
+        this.id = 'sample-applet';
+        this.name = 'Sample Applet';
+        this.description = 'A sample applet for demonstration purposes';
+    }
 
-#### Web Interface
+    trigger(event: Event): void {
+        if (event.type === 'sample_event') {
+            console.log(`Triggered by event: ${event.type}`);
+            this.action(event.payload);
+        } else {
+            console.log(`Event type ${event.type} is not supported.`);
+        }
+    }
 
-To manage configurations via the web interface, navigate to the Config Manager page in your application.
+    action(payload: any): void {
+        console.log(`Action executed with payload: ${JSON.stringify(payload)}`);
+    }
+}
