@@ -8,11 +8,11 @@ const secretKey = process.env.CONFIG_SECRET_KEY || 'default_secret_key';
 const iv = crypto.randomBytes(16);
 
 export const readConfig = (): any => {
-    const data = fs.readFileSync(configPath, 'utf8');
-    const decipher = crypto.createDecipheriv(algorithm, Buffer.from(secretKey), iv);
-    let decrypted = decipher.update(data, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
-    return JSON.parse(decrypted);
+    return {
+        facebook: {
+            access_token: process.env.FACEBOOK_ACCESS_TOKEN || ''
+        }
+    };
 };
 
 export const writeConfig = (config: any): void => {

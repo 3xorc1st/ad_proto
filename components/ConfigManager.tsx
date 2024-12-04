@@ -1,30 +1,35 @@
 import { useState } from 'react';
-import { readConfig, writeConfig } from '@/lib/configManager';
 
 const ConfigManager = () => {
-    const [config, setConfig] = useState(readConfig());
+  const [config, setConfig] = useState({
+    facebook: { access_token: process.env.FACEBOOK_ACCESS_TOKEN || '' },
+  });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setConfig({ ...config, [e.target.name]: e.target.value });
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfig({ facebook: { access_token: e.target.value } });
+  };
 
-    const handleSave = () => {
-        writeConfig(config);
-        alert('Config saved successfully!');
-    };
+  const handleSave = () => {
+    alert('Config changes are not saved dynamically in this environment.');
+  };
 
-    return (
-        <div>
-            <h1>Config Manager</h1>
-            <form>
-                <label>
-                    Facebook Access Token:
-                    <input type="text" name="facebook.access_token" value={config.facebook.access_token} onChange={handleChange} />
-                </label>
-                <button type="button" onClick={handleSave}>Save</button>
-            </form>
-        </div>
-    );
+  return (
+    <div>
+      <h1>Config Manager</h1>
+      <form>
+        <label>
+          Facebook Access Token:
+          <input
+            type="text"
+            name="facebook_access_token"
+            value={config.facebook.access_token}
+            onChange={handleChange}
+          />
+        </label>
+        <button type="button" onClick={handleSave}>Save</button>
+      </form>
+    </div>
+  );
 };
 
 export default ConfigManager;
