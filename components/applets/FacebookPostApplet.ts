@@ -28,15 +28,22 @@ export class FacebookPostApplet implements Applet {
     action(payload: any): void {
         console.log(`Posting to Facebook with payload: ${JSON.stringify(payload)}`);
 
-        FB.api('me/feed', 'post', {
-            message: payload.message,
-            access_token: config.facebook.access_token
-        }, (response: any) => {
-            if (!response || response.error) {
-                console.error('Error posting to Facebook:', response?.error);
-            } else {
-                console.log('Posted to Facebook successfully! ID:', response.id);
-            }
-        });
+        // Move the logic to validate token and post to Facebook to the server
+        fetch('/api/facebook-post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: payload.message }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Posted to Facebook successfully! ID:', data.id);
+                } else {
+                    console.error('Error posting to Facebook:', data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
 }
