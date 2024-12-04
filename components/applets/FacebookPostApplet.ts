@@ -13,9 +13,11 @@ export class FacebookPostApplet implements Applet {
 
     trigger(event: any): void {
         // Define event trigger logic
+        console.log(`Triggered by event: ${event.type}`);
     }
 
     action(payload: any): void {
         // Define action logic to post on Facebook
+        console.log(`Posting to Facebook with payload: ${JSON.stringify(payload)}`);
     }
 }
