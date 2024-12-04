@@ -29,6 +29,7 @@
     "@shadcn/ui": "^0.0.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "fb": "^2.0.0",
     "jsm-editor": "^0.0.12",
     "lexical": "^0.16.1",
     "lucide-react": "^0.427.0",
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@types/facebook-js-sdk": "^3.3.12",
+    "@types/fb": "^0.0.23",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
