@@ -17,11 +17,17 @@ export class FacebookPostApplet implements Applet {
     }
 
     trigger(event: Event): void {
-        if (event.type === 'post_to_facebook') {
-            console.log(`Triggered by event: ${event.type}`);
-            this.action(event.payload);
-        } else {
-            console.log(`Event type ${event.type} is not supported.`);
+        switch (event.type) {
+            case 'post_to_facebook':
+                console.log(`Triggered by event: ${event.type}`);
+                this.action(event.payload);
+                break;
+            case 'someEvent':
+                console.log('Evento someEvent recibido');
+                // Add logic for handling someEvent
+                break;
+            default:
+                console.log(`Event type ${event.type} is not supported.`);
         }
     }
 
