@@ -16,7 +16,9 @@ const handleFacebookPost = async (req: NextApiRequest, res: NextApiResponse) => 
 
         // Verify the access token
         try {
-            const response = await fetch(`https://graph.facebook.com/debug_token?input_token=${config.facebook.access_token}&access_token=${config.facebook.app_id}|${config.facebook.app_secret}`);
+            const url = `https://graph.facebook.com/debug_token?input_token=${config.facebook.access_token}&access_token=${config.facebook.app_id}|${config.facebook.app_secret}`;
+
+            const response = await fetch(url);
             const data = await response.json();
 
             if (data.data.is_valid) {
