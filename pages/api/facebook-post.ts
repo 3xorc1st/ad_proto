@@ -12,12 +12,20 @@ const facebookPost = async (req: NextApiRequest, res: NextApiResponse) => {
     const { facebook } = config;
 
     // Validate environment variables
+    console.log("Environment Variables:");
+    console.log(`FACEBOOK_ACCESS_TOKEN: ${facebook.access_token ? "SET" : "NOT SET"}`);
+    console.log(`FACEBOOK_APP_ID: ${facebook.app_id ? "SET" : "NOT SET"}`);
+    console.log(`FACEBOOK_APP_SECRET: ${facebook.app_secret ? "SET" : "NOT SET"}`);
+
     if (!facebook.access_token || !facebook.app_id || !facebook.app_secret) {
         console.error("Missing Facebook configuration");
         return res.status(500).json({ success: false, error: "Internal Server Error: Missing Facebook configuration" });
     }
 
     const url = `https://graph.facebook.com/debug_token?input_token=${facebook.access_token}&access_token=${facebook.app_id}|${facebook.app_secret}`;
+
+    // Log the constructed URL
+    console.log("Constructed URL:", url);
 
     // Validate the URL
     try {
@@ -42,5 +50,3 @@ const facebookPost = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(500).json({ success: false, error: "Internal Server Error" });
     }
 };
-
-export default facebookPost;
