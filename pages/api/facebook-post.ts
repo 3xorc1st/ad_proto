@@ -8,16 +8,16 @@ const config = {
     },
 };
 
-const payload = {
-    message: 'Hello, Facebook!',
-    // other data you want to send
-};
-
 const facebookPost = async (req: NextApiRequest, res: NextApiResponse) => {
     const { facebook } = config;
 
-    const url = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/facebook-post`;
-    fetch(url, { method: 'POST', body: JSON.stringify(payload) });
+    // Validate environment variables
+    if (!facebook.access_token || !facebook.app_id || !facebook.app_secret) {
+        console.error("Missing Facebook configuration");
+        return res.status(500).json({ success: false, error: "Internal Server Error: Missing Facebook configuration" });
+    }
+
+    const url = `https://graph.facebook.com/debug_token?input_token=${facebook.access_token}&access_token=${facebook.app_id}|${facebook.app_secret}`;
 
     // Validate the URL
     try {
